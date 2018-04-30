@@ -19,16 +19,16 @@ FLAGS += -Wall
 
 # my own libraries
 BOOST_DIR =
-#BOOST_DIR = ../boost_1_67_0/boost
+BOOST_DIR = ../boost_1_67_0/boost
 
 # directories to search for header files
 INCLUDES = 
-INCLUDES += -I$(BOOST_DIR)
+#INCLUDES += -I$(BOOST_DIR)
 #INCLUDES += -I<include_directory>
 
 # directories to search for library files
 LINK_DIRS =
-LINK_DIRS += -L$(BOOST_DIR)
+#LINK_DIRS += -L$(BOOST_DIR)
 #LINK_DIRS += -L<link_directory>
 
 # libraries to link with
