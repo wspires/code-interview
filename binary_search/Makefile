@@ -1,63 +1,62 @@
-##################### makefile ################################################
-#
-#    Author:     Wade Spires
-#    Program:    ws_tools
-#    Date:       2005/02/25
-#    Description:
-# 	  Makes libws_tools.
-#    Cleans directory of object files and executables.
-#
+###############################################################################
+# Variable declaration
 ###############################################################################
 
-###############################################################################
-# Declare variables
-###############################################################################
+# name of program
+NAME = binary_search
 
-NAME = ws_tools
-
+# compilers/archivers to use
 C  = gcc
 CC = g++
-AR = ar
+AR = /usr/bin/ar
 
+# compiler flags
 FLAGS =
-#FLAGS += -g
+FLAGS += -std=c++17
+FLAGS += -g
 FLAGS += -O2
-#FLAGS += -O3
 FLAGS += -Wall
 
+# my own libraries
+BOOST_DIR =
+BOOST_DIR = ../boost_1_67_0/boost
+
+# directories to search for header files
 INCLUDES = 
+#INCLUDES += -I$(BOOST_DIR)
 #INCLUDES += -I<include_directory>
 
+# directories to search for library files
+LINK_DIRS =
+#LINK_DIRS += -L$(BOOST_DIR)
+#LINK_DIRS += -L<link_directory>
+
+# libraries to link with
+LIBS =
+LIBS += -lm
+#LIBS += -l<library>
+
+# loader flags
 LD_FLAGS =
 #LD_FLAGS +=
 
-LINK_DIRS = 
-#LINK_DIRS += -L<link_directory>
-
-LIBS =
-LIBS += -lm
-#LIBS = -lpthread
-#LIBS += -l<library>
-
+# complete set of options to pass to linker
 LINK = $(LINK_DIRS) $(LIBS) $(LD_FLAGS)
 
+# name of file containing main()
+MAIN = main
+
+# header files in program
 HEADERS =
 
+# source code in program
 SOURCES = 
+SOURCES += $(MAIN).cpp
 
+# object code to generate
 OBJECTS =
 
 RM = /bin/rm -f
-
-TESTS = '1-arrays-and-strings'
-TESTS += 'graph'
-TESTS += 'heap'
-TESTS += 'hash_table'
-TESTS += 'binary_search'
-#TESTS += 'test_quotes'
-#TESTS += 'test_dir'
-#TESTS += 'test_random'
-#TESTS += 'test_name'
 
 ###############################################################################
 # Rules for compiling
@@ -75,36 +74,27 @@ TESTS += 'binary_search'
 		$(CC) -c $(FLAGS) $< $(INCLUDES)
 
 # link all object modules into executable
-$(NAME): $(OBJECTS)
-	@for test in $(TESTS); do \
-		make -C $$test; \
-	done;
-
-# link all object modules into executable
-all: $(OBJECTS)
-	@for test in $(TESTS); do \
-		make -C $$test; \
-	done;
+$(NAME): $(MAIN).o $(OBJECTS)
+		$(CC) $(FLAGS) -o $(NAME) $(MAIN).o $(OBJECTS) $(LINK) $(INCLUDES)
 
 ###############################################################################
 # Rules for other stuff
 ###############################################################################
 
-# create static library
+# create static library (excludes $(MAIN).o from library)
 lib: $(OBJECTS)
 	$(AR) rcs lib$(NAME).a $(OBJECTS)
+#	ranlib lib$(NAME).a  # `ar s` is same as `ranlib`
 
-# create source files' dependency list of header files
+# create dependency list by examining header files that are included
 depend:
 	makedepend -- $(FLAGS) -- $(SOURCES) $(INCLUDES) -s'# DO NOT DELETE THIS LINE -- `makedepend` depends on it.'
 
-# remove object files
+# remove object files, executables, and libraries
 clean:
 	$(RM) ${OBJECTS}
+	$(RM) ${MAIN}.o
+	$(RM) ${NAME}
 	$(RM) lib${NAME}.a
-	@for test in $(TESTS); do \
-		make -C $$test clean; \
-	done;
 
 # DO NOT DELETE THIS LINE -- `makedepend` depends on it.
-
