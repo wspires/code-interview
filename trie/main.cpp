@@ -43,11 +43,12 @@ public:
         TrieNode * p = m_root.get();
         for (char const c : word)
         {
-            if (not p->children[c - 'a'])
+            int idx = std::tolower(c) - 'a'; 
+            if (not p->children[idx])
             {
-                p->children[c - 'a'] = new TrieNode();
+                p->children[idx] = new TrieNode{};
             }
-            p = p->children[c - 'a'];
+            p = p->children[idx];
         }
         p->is_word = true;
     }
@@ -90,7 +91,8 @@ private:
         TrieNode * p = m_root.get();
         for (const char c : str)
         {
-            p = p->children[c - 'a'];
+            int idx = std::tolower(c) - 'a'; 
+            p = p->children[idx];
             if (not p)
             {
                 break;
@@ -176,6 +178,20 @@ public:
 
 int main(int argc, char * argv[])
 {
-    std::cout << "Hello" << std::endl;
+    std::vector<std::string> words = {"Hello", "world"};
+    Trie trie{words};
+
+    for (auto && word : words)
+    {
+        std::cout << word << " is_word: " << trie.is_word(word) << std::endl;
+    }
+
+    for (auto && word : words)
+    {
+        auto sub_word = word.substr(0, word.size() - 1);
+        std::cout << sub_word << " is_word: " << trie.is_word(sub_word) << std::endl;
+        std::cout << sub_word << " is_prefix: " << trie.is_prefix(sub_word) << std::endl;
+    }
+
     return EXIT_SUCCESS;
 }

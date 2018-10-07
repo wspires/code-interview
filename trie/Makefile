@@ -3,7 +3,7 @@
 ###############################################################################
 
 # name of program
-NAME = graph
+NAME = trie
 
 # compilers/archivers to use
 C  = gcc
