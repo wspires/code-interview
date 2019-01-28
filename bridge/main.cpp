@@ -1,29 +1,29 @@
 #include <chrono>
-#include <memory>
-
 #include <functional>
 #include <iostream>
 #include <iterator>
 #include <limits>
 #include <queue>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
+#include <thread>
 #include <unordered_map>
 #include <unordered_set>
-#include <thread>
 #include <vector>
 
-class semaphore
+class Semaphore
 {
 public:
-    semaphore(unsigned long count)
+    Semaphore(unsigned long count)
         : count_{count}
     {
     }
 
-    semaphore(semaphore const &) = delete;
-    semaphore & operator=(semaphore const &) = delete;
+    // Not copyable.
+    Semaphore(Semaphore const &) = delete;
+    Semaphore & operator=(Semaphore const &) = delete;
 
 	void signal()
 	{
@@ -62,19 +62,15 @@ private:
 class Bridge
 {
 public:
-    Bridge()
-    {
-    }
-
     void cross(std::string const & who)
     {
-        std::cout << who << " is trying to cross the bridge" << std::endl;
-        sem_.wait();
+        std::cout << who << " wants to cross the bridge" << std::endl;
+        semaphore_.wait();
         std::cout << who << " is crossing the bridge" << std::endl;
-        sem_.signal();
+        semaphore_.signal();
     }
 private:
-    semaphore sem_ = semaphore{1};
+    Semaphore semaphore_ = Semaphore{1};
 };
 
 class Farmer
@@ -100,10 +96,9 @@ void produce_farmers(std::string const & lane, Bridge & bridge)
 {
     using namespace std::chrono_literals;
 
+    // Keep producing farmers to cross the bridge after some delay.
     while (true)
     {
-        std::cout << lane << std::endl;
-
         auto farmer = std::make_unique<Farmer>(lane, bridge);
         std::thread th{
             [farmer=std::move(farmer)]()
@@ -123,7 +118,7 @@ int main(int argc, char * argv[])
     // Shared bridge.
     Bridge bridge{};
 
-    // Produce farmers on each side.
+    // Produce farmers on each side of the bridge.
     std::thread northbound_thread{
         [&bridge]()
         {

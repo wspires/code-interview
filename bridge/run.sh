@@ -2,4 +2,3 @@
 
 my_dir=`dirname $0`
 make && ${my_dir}/bridge
-#g++ -O3 -Wall -std=c++17 main.cpp && ${my_dir}/a.out
