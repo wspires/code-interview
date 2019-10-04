@@ -1,0 +1,85 @@
+Futures Trading
+
+What are futures?
+Futures contract is agreement to buy/sell at a specified time in the future
+Equities vs Futures
+    Exchanges:
+    Nasdaq
+    NYSE
+    NYSE Arca
+    Cboe BYX
+    Cboe BZX
+        Apple AAPL $218.82 
+
+    Agriculture
+    Energy
+    Equity Index
+    FX
+    Interest Rates
+    Metals
+    Bitcoin
+
+    CME - https://www.cmegroup.com
+        ES - E-mini S&P 500 Futures
+        An electronically traded futures contract one fifth the size of standard S&P futures, E-mini S&P 500 futures and options are based on the underlying Standard & Poor’s 500 stock index. Made up of 500 individual stocks representing the market capitalizations of large companies, the S&P 500 Index is a leading indicator of large-cap U.S. equities.
+        https://www.cmegroup.com/trading/equity-index/us-index/e-mini-sandp500_contract_specifications.html
+        Contract Unit: $50 x S&P 500 Index
+        2977.25 * 50 = > 148862.5
+
+        Minimum Price Fluctuation
+        Outright: 0.25 index points = $12.50
+        Calendar Spread: 0.05 index points = $2.50
+
+        Note: S&P 500 Index is 5x E-mini: $250 x S&P 500
+        https://www.cmegroup.com/trading/equity-index/us-index/sandp-500_quotes_globex.html
+
+
+    CFE
+        https://cfe.cboe.com/cfe-products/vx-cboe-volatility-index-vix-futures
+        VX - VIX futures provide market participants with the ability to trade a liquid volatility product based on the VIX Index methodology. VIX futures reflect the market's estimate of the value of the VIX Index on various expiration dates in the future.
+    Eurex - Deutsche Börse
+    Eurex Exchange is an international exchange which primarily offers trading in European based derivatives and it is the largest European futures and options market
+        https://www.eurexchange.com/exchange-en/products/idx/stx/blc/EURO-STOXX-50-Index-Futures-160088
+        FESX - Equity Index Derivative - The EURO STOXX 50 is a stock index of Eurozone stocks designed by STOXX
+
+        Interest rate derivatives
+        https://www.eurexchange.com/exchange-en/products/int
+        FGBL - Bund
+        FGBS - Schatz
+        FGBM - Bobl
+
+    Futures Challenges
+        Tick Size
+        Tick Value
+        Expiration
+        Price interpretation
+        Spreads:
+            * Calendar
+            * Inter-product
+    Equities Challenges
+        Multiple listings/markets
+        Higher volume (20 million shares ADV AAPL, 1-2 million contracts ES)
+        Renaming - Mergers/acquisitions
+
+Exchange -> Market Data -> Strategy
+Exchange <-> Order Entry <-> Strategy
+
+Limit Order
+Order Book
+EOBI
+ETI
+
+Low Latency
+* C++
+* Colocation
+* Specialised Hardware
+    * SolarFlare NICs
+    * SolarFlare NICs
+* Specialised Software
+    * onload - kernel bypass
+    * RT Linux
+* System tuning
+    * Interrupt affinity
+    * RCU callbacks affinity
+    * Task scheduling
+

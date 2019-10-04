@@ -1,0 +1,10 @@
+1. Presentation on Futures Trading
+    Krishna
+    Ben
+    Rene
+    David a
+2. Design elevator system
+3. Lunch - Mexicue
+4. Demo of Butterfly iQ
+5. C++ Coding with Krisna and David
+    dependency with shared_ptr using deleter
